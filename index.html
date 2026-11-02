@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuEmpleadoIA.store | La matriz de tu fuerza laboral</title>
+<meta name="description" content="Construye tu fuerza laboral digital. Empleados IA entrenados con frameworks reales: PMBOK, SCOR, NIIF. La próxima generación de empresas ya opera así.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0e14;--bg2:#0f151d;--neon:#00ff9d;--cyan:#00d4ff;--purple:#a855f7;--text:#e6edf3;--dim:#7d8590;--border:#1f2937}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;z-index:50;background:rgba(10,14,20,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+  .logo{font-weight:700;font-size:1.2rem;display:flex;align-items:center;gap:10px;color:var(--text)}
+  .logo-cursor{color:var(--neon);animation:blink 1.2s infinite}
+  @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav a{color:var(--dim);text-decoration:none;font-size:.9rem;font-family:'JetBrains Mono',monospace;transition:.2s}
+  nav a:hover{color:var(--neon)}
+  .btn{display:inline-block;padding:12px 24px;background:transparent;color:var(--neon);text-decoration:none;font-weight:600;font-size:.88rem;font-family:'JetBrains Mono',monospace;border:1px solid var(--neon);border-radius:4px;transition:.3s;cursor:pointer;position:relative;overflow:hidden}
+  .btn::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-100%);transition:.3s;z-index:-1}
+  .btn:hover{color:var(--bg)}
+  .btn:hover::before{transform:translateX(0)}
+  .btn-solid{background:var(--neon);color:var(--bg);border-color:var(--neon)}
+  .btn-solid::before{display:none}
+  .btn-solid:hover{background:transparent;color:var(--neon)}
+  .hero{padding:120px 0 100px;position:relative}
+  .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,157,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,157,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;mask-image:radial-gradient(ellipse at center,black,transparent 80%)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative}
+  .term-line{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--neon);margin-bottom:16px}
+  .term-line::before{content:'> ';color:var(--dim)}
+  .hero h1{font-size:3.4rem;font-weight:700;line-height:1.05;margin-bottom:24px;letter-spacing:-1.5px}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--neon),var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{font-size:1.1rem;color:var(--dim);margin-bottom:32px;max-width:520px}
+  .terminal{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:.82rem}
+  .term-bar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);background:#0b1017}
+  .term-dot{width:10px;height:10px;border-radius:50%}
+  .term-dot.r{background:#ff5f56}.term-dot.y{background:#ffbd2e}.term-dot.g{background:#27c93f}
+  .term-body{padding:20px;line-height:1.9;color:var(--dim)}
+  .term-body .ok{color:var(--neon)}
+  .term-body .info{color:var(--cyan)}
+  .term-body .warn{color:#fbbf24}
+  .cursor{color:var(--neon);animation:blink 1.2s infinite}
+  section{padding:100px 0;border-top:1px solid var(--border)}
+  .section-head{margin-bottom:56px;max-width:700px}
+  .section-head .label{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--neon);margin-bottom:12px;display:block}
+  .section-head h2{font-size:2.4rem;font-weight:700;margin-bottom:14px;letter-spacing:-.5px}
+  .section-head p{color:var(--dim);font-size:1.05rem}
+  .grid-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .node{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:28px;transition:.3s;position:relative;overflow:hidden}
+  .node::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--neon);transition:.3s}
+  .node:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:0 0 30px -10px rgba(0,255,157,.4)}
+  .node:hover::before{height:100%}
+  .node-id{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--dim);margin-bottom:12px;display:flex;justify-content:space-between}
+  .node-id .status{color:var(--neon)}
+  .node h3{font-size:1.1rem;margin-bottom:6px;font-weight:600}
+  .node .frame{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cyan);margin-bottom:14px}
+  .node p{font-size:.88rem;color:var(--dim)}
+  .node ul{list-style:none;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--dim)}
+  .node ul li{padding-left:16px;position:relative;margin-bottom:4px}
+  .node ul li::before{content:'▸';position:absolute;left:0;color:var(--neon)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+  .stat{padding:32px 24px;border-right:1px solid var(--border);text-align:center}
+  .stat:last-child{border-right:none}
+  .stat-num{font-size:2.2rem;font-weight:700;color:var(--neon);font-family:'JetBrains Mono',monospace;display:block}
+  .stat-label{font-size:.78rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+  .cta-box{background:linear-gradient(135deg,rgba(0,255,157,.08),rgba(168,85,247,.08));border:1px solid var(--border);border-radius:12px;padding:64px 40px;text-align:center;position:relative;overflow:hidden}
+  .cta-box::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,255,157,.15),transparent 60%);pointer-events:none}
+  .cta-box h2{font-size:2.4rem;font-weight:700;margin-bottom:16px;position:relative}
+  .cta-box p{color:var(--dim);max-width:520px;margin:0 auto 32px;position:relative}
+  footer{border-top:1px solid var(--border);padding:48px 0 32px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--dim)}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:32px}
+  .foot-grid h4{color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:.85rem;margin-bottom:14px}
+  .foot-grid a{color:var(--dim);text-decoration:none;display:block;margin-bottom:6px;transition:.2s}
+  .foot-grid a:hover{color:var(--neon)}
+  .foot-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  @media(max-width:900px){
+    .hero-grid,.grid-nodes,.stats,.foot-grid{grid-template-columns:1fr}
+    .hero h1{font-size:2.2rem}
+    nav ul{display:none}
+    .stat{border-right:none;border-bottom:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="container">
+    <div class="logo"><span class="mono" style="color:var(--neon)">~/</span>tuempleadoia<span class="logo-cursor">_</span></div>
+    <ul>
+      <li><a href="#nodos">nodos</a></li>
+      <li><a href="#stats">métricas</a></li>
+      <li><a href="#deploy">deploy</a></li>
+    </ul>
+    <a href="#deploy" class="btn">Inicializar equipo</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="term-line">initialize --workforce --ai --latam</div>
+      <h1>La <span class="grad">matriz</span> de tu fuerza laboral ya está aquí.</h1>
+      <p>Empleados de inteligencia artificial entrenados con frameworks probados: PMBOK, SCOR, NIIF, normativa laboral. Conecta tu empresa al sistema operativo del futuro.</p>
+      <a href="#nodos" class="btn btn-solid">Explorar nodos</a>
+      <a href="https://wa.me/51946736815?text=Hola,%20vengo%20de%20tuempleadoia.store" class="btn" style="margin-left:10px">Conectar</a>
+    </div>
+    <div class="terminal">
+      <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+      <div class="term-body">
+        <div><span class="ok">✓</span> initializing core...</div>
+        <div><span class="ok">✓</span> loading PM_agent <span class="info">[PMBOK®]</span></div>
+        <div><span class="ok">✓</span> loading LOG_agent <span class="info">[SCOR®]</span></div>
+        <div><span class="ok">✓</span> loading FIN_agent <span class="info">[NIIF]</span></div>
+        <div><span class="ok">✓</span> loading HR_agent <span class="info">[LATAM]</span></div>
+        <div><span class="warn">▸</span> deploying to production...</div>
+        <div><span class="ok">✓</span> workforce online <span class="cursor">█</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nodos">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">// disponibles ahora</span>
+      <h2>Nodos de trabajo</h2>
+      <p>Cada empleado IA es un nodo especializado, entrenado con el framework de referencia de su disciplina.</p>
+    </div>
+    <div class="grid-nodes">
+      <div class="node">
+        <div class="node-id"><span>NODE_001</span><span class="status">● online</span></div>
+        <h3>Project Manager</h3>
+        <div class="frame">[PMBOK® · PMI]</div>
+        <p>Planificación, ejecución y monitoreo de proyectos con estándares internacionales.</p>
+        <ul><li>cronograma</li><li>riesgos</li><li>stakeholders</li></ul>
+      </div>
+      <div class="node">
+        <div class="node-id"><span>NODE_002</span><span class="status">● online</span></div>
+        <h3>Logístico</h3>
+        <div class="frame">[SCOR® · Supply Chain]</div>
+        <p>Optimización de cadena de suministro con modelo de referencia internacional.</p>
+        <ul><li>demand planning</li><li>rutas</li><li>proveedores</li></ul>
+      </div>
+      <div class="node">
+        <div class="node-id"><span>NODE_003</span><span class="status">● online</span></div>
+        <h3>Contador</h3>
+        <div class="frame">[NIIF · IFRS]</div>
+        <p>Control de gastos, cobranzas y conciliaciones con precisión contable.</p>
+        <ul><li>cobranzas</li><li>conciliación</li><li>reportes</li></ul>
+      </div>
+      <div class="node">
+        <div class="node-id"><span>NODE_004</span><span class="status">● online</span></div>
+        <h3>Planillero</h3>
+        <div class="frame">[LATAM labor law]</div>
+        <p>Gestión de planillas, beneficios y cumplimiento normativo regional.</p>
+        <ul><li>planilla</li><li>CTS</li><li>asistencia</li></ul>
+      </div>
+      <div class="node">
+        <div class="node-id"><span>NODE_005</span><span class="status">● online</span></div>
+        <h3>Marketing</h3>
+        <div class="frame">[AIDA · Inbound]</div>
+        <p>Ciclo completo de ventas: pre-venta, venta y post-venta automatizado.</p>
+        <ul><li>leads</li><li>nurturing</li><li>fidelización</li></ul>
+      </div>
+      <div class="node">
+        <div class="node-id"><span>NODE_006</span><span class="status">● online</span></div>
+        <h3>Almacenero</h3>
+        <div class="frame">[5S · ABC]</div>
+        <p>Control de materiales, herramientas y trazabilidad de inventario.</p>
+        <ul><li>stock</li><li>alertas</li><li>valorización</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container">
+    <div class="section-head">
+      <span class="label">// system metrics</span>
+      <h2>Operación en números</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="stat-num">6+</span><div class="stat-label">Nodos activos</div></div>
+      <div class="stat"><span class="stat-num">4</span><div class="stat-label">Países</div></div>
+      <div class="stat"><span class="stat-num">24/7</span><div class="stat-label">Uptime</div></div>
+      <div class="stat"><span class="stat-num">0</span><div class="stat-label">Planilla</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="deploy">
+  <div class="container">
+    <div class="cta-box">
+      <span class="label mono" style="color:var(--neon);font-size:.8rem;display:block;margin-bottom:12px">// ready to deploy</span>
+      <h2>Inicializa tu equipo hoy</h2>
+      <p>Cuéntanos qué necesita tu operación. Te conectamos con los nodos que generan impacto inmediato.</p>
+      <a href="https://wa.me/51946736815?text=Hola,%20vengo%20de%20tuempleadoia.store%20y%20quiero%20inicializar%20mi%20equipo" class="btn btn-solid">Deploy workforce</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div style="font-weight:700;font-size:1.1rem;margin-bottom:10px"><span style="color:var(--neon)">~/</span>tuempleadoia.store</div>
+        <p>Fuerza laboral digital para empresas de LATAM. Nodos especializados, operación continua.</p>
+      </div>
+      <div><h4>Nodos</h4><a href="#nodos">Project Manager</a><a href="#nodos">Logístico</a><a href="#nodos">Contador</a><a href="#nodos">Planillero</a><a href="#nodos">Marketing</a><a href="#nodos">Almacenero</a></div>
+      <div><h4>Conectar</h4><a href="https://wa.me/51946736815">WhatsApp: +51 946 736 815</a><a href="mailto:contacto@tuempleadoia.store">contacto@tuempleadoia.store</a><a href="#deploy">Deploy</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 tuempleadoia.store</span>
+      <span class="mono">mx · pe · cr · co</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
